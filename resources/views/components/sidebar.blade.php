@@ -2,12 +2,12 @@
     <ul>
         <li>
             <span class="logo">Inventory System</span>
-            <button onclick="toggleSidebar()" id="toggle-btn">
+            <button id="toggle-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path d="M10.48,19a1,1,0,0,1-.7-.29L5.19,14.12a3,3,0,0,1,0-4.24L9.78,5.29a1,1,0,0,1,1.41,0,1,1,0,0,1,0,1.42L6.6,11.29a1,1,0,0,0,0,1.42l4.59,4.58a1,1,0,0,1,0,1.42A1,1,0,0,1,10.48,19Z"/><path d="M17.48,19a1,1,0,0,1-.7-.29l-6-6a1,1,0,0,1,0-1.42l6-6a1,1,0,0,1,1.41,0,1,1,0,0,1,0,1.42L12.9,12l5.29,5.29a1,1,0,0,1,0,1.42A1,1,0,0,1,17.48,19Z"/></svg>
             </button>
         </li>
-        <li class="active">
-            <a href="#">
+        <li class="{{ request()->routeIs('dashboard.*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.admin') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="20" height="20">
                     <path d="m9,0h-4C2.243,0,0,2.243,0,5v2c0,1.103.897,2,2,2h7c1.103,0,2-.897,2-2V2c0-1.103-.897-2-2-2ZM2,7v-2c0-1.654,1.346-3,3-3h4l.002,5H2Zm20,8h-7c-1.103,0-2,.897-2,2v5c0,1.103.897,2,2,2h4c2.757,0,5-2.243,5-5v-2c0-1.103-.897-2-2-2Zm0,4c0,1.654-1.346,3-3,3h-4v-5h7v2ZM19,0h-4c-1.103,0-2,.897-2,2v9c0,1.103.897,2,2,2h7c1.103,0,2-.897,2-2v-6c0-2.757-2.243-5-5-5Zm-4,11V2h4c1.654,0,3,1.346,3,3l.002,6h-7.002Zm-6,0H2c-1.103,0-2,.897-2,2v6c0,2.757,2.243,5,5,5h4c1.103,0,2-.897,2-2v-9c0-1.103-.897-2-2-2Zm-4,11c-1.654,0-3-1.346-3-3v-6h7l.002,9h-4.002Z"/>
                   </svg>
@@ -34,16 +34,17 @@
                 <span>Products</span>
                 <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path d="M6.41,9H17.59a1,1,0,0,1,.7,1.71l-5.58,5.58a1,1,0,0,1-1.42,0L5.71,10.71A1,1,0,0,1,6.41,9Z"/></svg>
             </button>
-            <ul class="sub-menu">
+            <ul class="sub-menu {{ request()->routeIs('product-category.*') ? 'show' : '' }}">
                 <div>
                     <li><a href="#">Stocks</a></li>
                     <li><a href="#">Create</a></li>
                     <li><a href="#">Transfer</a></li>
+                    <li class="{{ request()->routeIs('product-category.*') ? 'active' : '' }}"><a href="{{ route('product-category.index') }}">Categories</a></li>
                 </div>
             </ul>
         </li>
-        <li>
-            <a href="#">
+        <li class="{{ request()->routeIs('warehouse.*') ? 'active' : '' }}">
+            <a href="{{ route('warehouse.index') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="20" height="20"><path d="M21.8,5.579,14.8.855A4.981,4.981,0,0,0,9.2.855l-7,4.724A4.992,4.992,0,0,0,0,9.724V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V9.724A4.993,4.993,0,0,0,21.8,5.579ZM18,22H6V13a2,2,0,0,1,2-2h8a2,2,0,0,1,2,2Zm4-3a3,3,0,0,1-2,2.828V13a4,4,0,0,0-4-4H8a4,4,0,0,0-4,4v8.828A3,3,0,0,1,2,19V9.724A3,3,0,0,1,3.322,7.237l7-4.723a2.983,2.983,0,0,1,3.356,0l7,4.723A3,3,0,0,1,22,9.724Zm-8,0a1,1,0,0,1-1,1H11a1,1,0,0,1,0-2h2A1,1,0,0,1,14,19Z"/></svg>
                 <span>Warehouse</span>
             </a>
