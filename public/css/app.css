@@ -16,6 +16,7 @@
     --secondary: #213555;
     --secondary-light: #274a7d;
     --secondary-dark: #17233a;
+    --secondary-op-6: rgb(33, 53, 85, 0.6);
 
     --white: #fbfcf8;
     --black: #232323;
@@ -263,9 +264,13 @@ main .heading {
     padding: 1.5em;
 }
 .main-container {
+    margin-bottom: 60px;
     padding: 0 min(1.5em, 15%) min(1.5em, 15%) min(1.5em, 15%);
 }
 .table-responsive {
     padding: min(1em, 10%);
 }
 /* === Main End === */
+.dt-container {
+    position: unset !important;
+}
