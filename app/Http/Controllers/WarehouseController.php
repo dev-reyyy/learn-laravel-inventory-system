@@ -47,6 +47,18 @@ class WarehouseController extends Controller
     }
     
     public function update(Request $request, $warehouseId) {
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'address' => 'required|string|max:100',
+            'reference_code' => 'required|string|max:100',
+        ]);
+        
+        $warehouse = Warehouse::find($warehouseId);
+        $warehouse->name         = $validated['name'];
+        $warehouse->address         = $validated['address'];
+        $warehouse->reference_code  = $validated['reference_code'];
+        $warehouse->save();
+
         return redirect()->back()->with('success', 'Warehouse updated successfully.');
     }
     
