@@ -29,7 +29,7 @@
                             <td class="text-center">
                                 <div class="dropdown">
                                     <a class="btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fi fi-rr-menu-dots-vertical"></i>
+                                        <i class="bi bi-three-dots-vertical"></i>
                                     </a>
                                 
                                     <ul class="dropdown-menu">

@@ -30,7 +30,7 @@ class WarehouseController extends Controller
         $warehouse->address     = $validated['address'];
         $warehouse->reference_code    = $validated['reference_code'];
         $warehouse->save();
-
+        
         return redirect()->back()->with('success', 'Warehouse created successfully.');
     }
 
