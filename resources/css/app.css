@@ -275,3 +275,7 @@ main .heading {
 .dt-container {
     position: unset !important;
 }
+label:has(+ input:required):after {
+    content: " *";
+    color: red;
+}
