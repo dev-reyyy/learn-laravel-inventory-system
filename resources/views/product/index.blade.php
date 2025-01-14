@@ -31,6 +31,7 @@
                             </td>
                             <td>{{ $product->category->name }}</td>
                             <td>{{ $product->quantity }}</td>
+                            <td>{{ $product->sku }}</td>
                             <td class="text-center">
                                 <div class="dropdown">
                                     <a class="btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,7 +39,7 @@
                                     </a>
                                 
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#" data-link="{{ route('product.edit', $product->id) }}" data-ajax-popup="true">Edit</a></li>
+                                        <li><a class="dropdown-item" href="#" data-link="{{ route('product.edit', $product->id) }}" data-ajax-popup="true" data-modal-size="modal-lg">Edit</a></li>
                                         <li>
                                             <form action="{{ route('product.destroy', $product->id) }}" method="POST">
                                                 @csrf
