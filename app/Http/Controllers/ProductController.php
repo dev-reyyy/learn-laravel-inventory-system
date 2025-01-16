@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -42,21 +43,11 @@ class ProductController extends Controller
             'status'        => 'required|string|in:active,inactive',
         ]);
 
-        $path = $request->hasFile('featured_image') 
-                ? $request->file('featured_image')->store('product-images', 'public') 
-                : null;
-
-        $additionalImagePaths = [];
-        if ($request->hasFile('additional_images'))
-        {
-            foreach ($request->file('additional_images') as $additionalImage)
-            {
-                $additionalImagePaths[] = $additionalImage->store('product-images', 'public');
-            }
-        }
+        $featuredImagePath      = Utility::storeFile($request->file('featured_image'), 'product-images', 'public');
+        $additionalImagePaths   = Utility::storeFiles($request->file('additional_images'), 'product-images', 'public');
                 
         $product = Product::create(array_merge($validated, [
-            'featured_image' => $path,
+            'featured_image' => $featuredImagePath,
             'additional_images' => json_encode($additionalImagePaths),
         ]));
 
@@ -98,35 +89,23 @@ class ProductController extends Controller
 
         $product = Product::find($productId);
 
-        if ($request->hasFile('featured_image'))
-        {
-            if ($product->featured_image)
-            {
-                Storage::disk('public')->delete($product->featured_image);
-            }
-            
-            $path = $request->file('featured_image')->store('product-images', 'public');
-        } else
-        {
-            $path = $product->featured_image;
+        // Handle featured image
+        if ($request->hasFile('featured_image')) {
+            Utility::deleteFile($product->featured_image, 'public');
+            $featuredImagePath = Utility::storeFile($request->file('featured_image'), 'product-images', 'public');
+        } else {
+            $featuredImagePath = $product->featured_image;
         }
 
+        // Handle additional images
         $additionalImagePaths = $product->additional_images ? json_decode($product->additional_images, true) : [];
         if ($request->hasFile('additional_images')) {
-            foreach ($additionalImagePaths as $imagePath)
-            {
-                Storage::disk('public')->delete($imagePath);
-            }
-
-            // Store new additional images
-            foreach ($request->file('additional_images') as $additionalImage)
-            {
-                $additionalImagePaths[] = $additionalImage->store('product-images', 'public');
-            }
+            Utility::deleteFiles($additionalImagePaths, 'public');
+            $additionalImagePaths = Utility::storeFiles($request->file('additional_images'), 'product-images', 'public');
         }
                 
         $product->update(array_merge($validated, [
-            'featured_image' => $path,
+            'featured_image' => $featuredImagePath,
             'additional_images' => json_encode($additionalImagePaths),
         ]));
 
@@ -136,6 +115,11 @@ class ProductController extends Controller
     public function destroy($productId)
     {
         $product = Product::find($productId);
+        
+        $additionalImagePaths = $product->additional_images ? json_decode($product->additional_images, true) : [];
+        Utility::deleteFile($product->featured_image, 'public');
+        Utility::deleteFiles($additionalImagePaths, 'public');
+
         $product->delete();
 
         return redirect()->back()->with('success', 'Product deleted successfully.');

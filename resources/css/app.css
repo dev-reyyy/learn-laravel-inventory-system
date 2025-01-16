@@ -280,3 +280,19 @@ label:has(+ select[required]):after {
     content: " *";
     color: red;
 }
+.col.text-group small,
+.row.text-group small {
+    color: var(--primary);
+}
+
+.product-img-container {
+    height: 10em;
+    padding: 0.4em;
+}
+.product-img {
+    width: 100%;
+}
+.square-img {
+    aspect-ratio: 1/1;
+    object-fit: contain;
+}

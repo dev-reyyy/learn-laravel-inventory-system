@@ -1,10 +1,10 @@
 @extends('components.layout')
 
-@section('title', 'Product Stocks')
+@section('title', 'Product')
 
 @section('content')
     <div class="heading">    
-        <h2>Manage Product Stocks</h2>
+        <h2>Manage Product</h2>
         <button class="btn btn-primary" data-link="{{ route('product.create') }}" data-ajax-popup="true" data-modal-size="modal-lg">New Product</button>
     </div>
 
@@ -27,10 +27,10 @@
                         <tr>
                             <td class="text-center"></td>
                             <td>
-                                <a class="link-underline link-offset-2-hover link-underline-opacity-0 link-underline-opacity-75-hover fw-semibold" href="" data-link="{{ route('product.show', $product->id) }}" data-ajax-popup="true">{{ $product->name }}</a>
+                                <a class="link-underline link-offset-2-hover link-underline-opacity-0 link-underline-opacity-75-hover fw-semibold" href="" data-link="{{ route('product.show', $product->id) }}" data-ajax-popup="true" data-modal-size="modal-lg">{{ $product->name }}</a>
                             </td>
                             <td>{{ $product->category->name }}</td>
-                            <td>{{ $product->quantity }}</td>
+                            <td>{{ $product->quantity }} {{ $product->unit }}</td>
                             <td>{{ $product->sku }}</td>
                             <td class="text-center">
                                 <div class="dropdown">

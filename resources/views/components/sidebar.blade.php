@@ -37,7 +37,6 @@
             <ul class="sub-menu {{ request()->routeIs('product-category.*') || request()->routeIs('product.*') ? 'show' : '' }}">
                 <div>
                     <li class="{{ request()->routeIs('product.index') ? 'active' : '' }}"><a href="{{ route('product.index') }}">Products</a></li>
-                    <li class="{{ request()->routeIs('product.create') ? 'active' : '' }}"><a href="{{ route('product.create') }}">Create</a></li>
                     <li><a href="#">Transfer</a></li>
                     <li class="{{ request()->routeIs('product-category.index') ? 'active' : '' }}"><a href="{{ route('product-category.index') }}">Categories</a></li>
                 </div>

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('unit_price', 11, 2);
             $table->integer('quantity')->default(0);
             $table->string('unit')->default('pieces');
-            $table->integer('reorder_level')->default(10);
+            $table->integer('reorder_level')->default(0);
             $table->text('description')->nullable();
             $table->string('featured_image')->nullable();
             $table->json('additional_images')->nullable();

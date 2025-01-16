@@ -57,7 +57,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="reorder_level" class="form-label">Reorder Level</label>
-                        <input type="number" class="form-control" id="reorder_level" name="reorder_level" placeholder="Enter Reorder Level" step="0.01" value="10" required>
+                        <input type="number" class="form-control" id="reorder_level" name="reorder_level" placeholder="Enter Reorder Level" step="0.01" value="0" required>
                     </div>
                     <div class="col">
                         <label for="status" class="form-label">Status</label>
@@ -85,15 +85,14 @@
                 </div>
             </div>
             <div class="col-4">
-                <div class="row">
-                    <div class="file-upload-container mb-2">
-                        <label for="featured_image" class="form-label">Product Image</label>
-                        <img class="img-thumbnail" src="{{ asset('assets/images/placeholder-600X400.jpg') }}" alt="placeholder">
-                    </div>
-                    <div class="mb-3">
-                        <input class="form-control" type="file" name="featured_image" id="featured_image">
-                      </div>
+                <label for="featured_image" class="form-label">Product Image</label>
+                
+                <div class="d-flex justify-content-center border rounded mb-2 product-img-container">
+                    <img class="product-img square-img" src="{{ asset('assets/images/placeholder-600X400.jpg') }}" alt="placeholder">
                 </div>
+                <div class="mb-3">
+                    <input class="form-control" type="file" name="featured_image" id="featured_image">
+                  </div>
             </div>
         </div>
     </div>

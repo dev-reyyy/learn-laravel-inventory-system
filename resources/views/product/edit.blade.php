@@ -86,14 +86,13 @@
                 </div>
             </div>
             <div class="col-4">
-                <div class="row">
-                    <div class="file-upload-container mb-2">
-                        <label for="featured_image" class="form-label">Product Image</label>
-                        <img class="img-thumbnail" src="{{ asset('assets/images/placeholder-600X400.jpg') }}" alt="placeholder">
-                    </div>
-                    <div class="mb-3">
-                        <input class="form-control" type="file" name="featured_image" id="featured_image">
-                      </div>
+                <label for="featured_image" class="form-label">Product Image</label>
+                <div class="d-flex justify-content-center border rounded mb-2 product-img-container">
+                    <img class="product-img square-img" src="{{ asset($product->featured_image ? $product->featured_image : 'assets/images/placeholder-600X400.jpg') }}" alt="placeholder">
+                </div>
+
+                <div class="mb-3">
+                    <input class="form-control" type="file" name="featured_image" id="featured_image">
                 </div>
             </div>
         </div>
