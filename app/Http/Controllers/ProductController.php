@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CurrencyHelper;
+use App\Helpers\FileHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -33,23 +35,29 @@ class ProductController extends Controller
             'sku'           => 'required|string|max:100|unique:products,sku',
             'category_id'   => 'required|integer|exists:product_categories,id',
             'cost_price'    => 'nullable|numeric|min:0',
-            'unit_price'    => 'required|numeric|min:0',
-            'quantity'      => 'required|integer|min:0',
+            'unit_price'    => 'nullable|numeric|min:0',
+            'quantity'      => 'nullable|integer|min:0',
             'unit'          => 'required|string|in:' . implode(',', Product::UNITS),
-            'reorder_level' => 'required|integer|min:0',
+            'reorder_level' => 'nullable|integer|min:0',
             'description'   => 'nullable|string|max:1000',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'additional_images.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'status'        => 'required|string|in:active,inactive',
         ]);
 
-        $featuredImagePath      = Utility::storeFile($request->file('featured_image'), 'product-images', 'public');
-        $additionalImagePaths   = Utility::storeFiles($request->file('additional_images'), 'product-images', 'public');
+        $featuredImagePath      = FileHelper::storeFile($request->file('featured_image'), 'product-images', 'public');
+        $additionalImagePaths   = FileHelper::storeFiles($request->file('additional_images'), 'product-images', 'public');
                 
-        $product = Product::create(array_merge($validated, [
+        $validated = array_merge($validated, [
+            'cost_price'    => $validated['cost_price'] ?? 0,
+            'unit_price'    => $validated['unit_price'] ?? 0,
+            'quantity'      => $validated['quantity'] ?? 0,
+            'reorder_level' => $validated['reorder_level'] ?? 0,
             'featured_image' => $featuredImagePath,
             'additional_images' => json_encode($additionalImagePaths),
-        ]));
+        ]);
+        
+        $product = Product::create($validated);
 
         return redirect()->back()->with('success', 'Product successfully created.');
     }
@@ -57,6 +65,8 @@ class ProductController extends Controller
     public function show($productId)
     {
         $product = Product::find($productId);
+        $product->cost_price = CurrencyHelper::format($product->cost_price);
+        $product->unit_price = CurrencyHelper::format($product->unit_price);
 
         return view('product.show', compact('product'));
     }
@@ -77,10 +87,10 @@ class ProductController extends Controller
             'sku'           => 'required|string|max:100|unique:products,sku,' . $productId,
             'category_id'   => 'required|integer|exists:product_categories,id',
             'cost_price'    => 'nullable|numeric|min:0',
-            'unit_price'    => 'required|numeric|min:0',
-            'quantity'      => 'required|integer|min:0',
+            'unit_price'    => 'nullable|numeric|min:0',
+            'quantity'      => 'nullable|integer|min:0',
             'unit'          => 'required|string|in:' . implode(',', Product::UNITS),
-            'reorder_level' => 'required|integer|min:0',
+            'reorder_level' => 'nullable|integer|min:0',
             'description'   => 'nullable|string|max:1000',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'additional_images.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
@@ -91,8 +101,8 @@ class ProductController extends Controller
 
         // Handle featured image
         if ($request->hasFile('featured_image')) {
-            Utility::deleteFile($product->featured_image, 'public');
-            $featuredImagePath = Utility::storeFile($request->file('featured_image'), 'product-images', 'public');
+            FileHelper::deleteFile($product->featured_image, 'public');
+            $featuredImagePath = FileHelper::storeFile($request->file('featured_image'), 'product-images', 'public');
         } else {
             $featuredImagePath = $product->featured_image;
         }
@@ -100,8 +110,8 @@ class ProductController extends Controller
         // Handle additional images
         $additionalImagePaths = $product->additional_images ? json_decode($product->additional_images, true) : [];
         if ($request->hasFile('additional_images')) {
-            Utility::deleteFiles($additionalImagePaths, 'public');
-            $additionalImagePaths = Utility::storeFiles($request->file('additional_images'), 'product-images', 'public');
+            FileHelper::deleteFiles($additionalImagePaths, 'public');
+            $additionalImagePaths = FileHelper::storeFiles($request->file('additional_images'), 'product-images', 'public');
         }
                 
         $product->update(array_merge($validated, [
@@ -117,8 +127,8 @@ class ProductController extends Controller
         $product = Product::find($productId);
         
         $additionalImagePaths = $product->additional_images ? json_decode($product->additional_images, true) : [];
-        Utility::deleteFile($product->featured_image, 'public');
-        Utility::deleteFiles($additionalImagePaths, 'public');
+        FileHelper::deleteFile($product->featured_image, 'public');
+        FileHelper::deleteFiles($additionalImagePaths, 'public');
 
         $product->delete();
 

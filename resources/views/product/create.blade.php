@@ -36,13 +36,13 @@
                     </div>
                     <div class="col">
                         <label for="unit_price" class="form-label">Unit Price</label>
-                        <input type="number" class="form-control" id="unit_price" name="unit_price" placeholder="Enter Unit Price" step="0.01" required>
+                        <input type="number" class="form-control" id="unit_price" name="unit_price" placeholder="Enter Unit Price" step="0.01">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="quantity" class="form-label">Initial Stock</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Enter Quantity" step="0.01" value="0" required>
+                        <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Enter Quantity" step="0.01">
                     </div>
                     <div class="col">
                         <label for="unit" class="form-label">Unit</label>
@@ -57,7 +57,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="reorder_level" class="form-label">Reorder Level</label>
-                        <input type="number" class="form-control" id="reorder_level" name="reorder_level" placeholder="Enter Reorder Level" step="0.01" value="0" required>
+                        <input type="number" class="form-control" id="reorder_level" name="reorder_level" placeholder="Enter Reorder Level" step="0.01">
                     </div>
                     <div class="col">
                         <label for="status" class="form-label">Status</label>
@@ -88,7 +88,7 @@
                 <label for="featured_image" class="form-label">Product Image</label>
                 
                 <div class="d-flex justify-content-center border rounded mb-2 product-img-container">
-                    <img class="product-img square-img" src="{{ asset('assets/images/placeholder-600X400.jpg') }}" alt="placeholder">
+                    <img class="product-img square-img" id="preview-image" src="{{ asset('assets/images/placeholder-600X400.jpg') }}" alt="placeholder">
                 </div>
                 <div class="mb-3">
                     <input class="form-control" type="file" name="featured_image" id="featured_image">

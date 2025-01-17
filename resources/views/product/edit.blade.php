@@ -37,13 +37,13 @@
                     </div>
                     <div class="col">
                         <label for="unit_price" class="form-label">Unit Price</label>
-                        <input type="number" class="form-control" id="unit_price" name="unit_price" placeholder="Enter Unit Price" step="0.01" value="{{ $product->unit_price }}" required>
+                        <input type="number" class="form-control" id="unit_price" name="unit_price" placeholder="Enter Unit Price" step="0.01" value="{{ $product->unit_price }}">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="quantity" class="form-label">Initial Stock</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Enter Quantity" step="0.01" value="{{ $product->quantity }}" value="0" required>
+                        <label for="quantity" class="form-label">Stocks</label>
+                        <input type="number" class="form-control bg-dark-subtle" id="quantity" name="quantity" placeholder="Enter Quantity" step="0.01" value="{{ $product->quantity }}" value="0" readonly>
                     </div>
                     <div class="col">
                         <label for="unit" class="form-label">Unit</label>
@@ -58,7 +58,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="reorder_level" class="form-label">Reorder Level</label>
-                        <input type="number" class="form-control" id="reorder_level" name="reorder_level" placeholder="Enter Reorder Level" step="0.01" value="{{ $product->reorder_level }}" required>
+                        <input type="number" class="form-control" id="reorder_level" name="reorder_level" placeholder="Enter Reorder Level" step="0.01" value="{{ $product->reorder_level }}">
                     </div>
                     <div class="col">
                         <label for="status" class="form-label">Status</label>
@@ -88,7 +88,7 @@
             <div class="col-4">
                 <label for="featured_image" class="form-label">Product Image</label>
                 <div class="d-flex justify-content-center border rounded mb-2 product-img-container">
-                    <img class="product-img square-img" src="{{ asset($product->featured_image ? $product->featured_image : 'assets/images/placeholder-600X400.jpg') }}" alt="placeholder">
+                    <img class="product-img square-img" id="preview-image" src="{{ asset($product->featured_image ? $product->featured_image : 'assets/images/placeholder-600X400.jpg') }}" alt="placeholder">
                 </div>
 
                 <div class="mb-3">

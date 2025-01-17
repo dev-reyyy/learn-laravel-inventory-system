@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('sku')->unique();
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->decimal('cost_price', 11, 2)->nullable();
-            $table->decimal('unit_price', 11, 2);
+            $table->decimal('cost_price', 11, 2)->default(0);
+            $table->decimal('unit_price', 11, 2)->default(0);
             $table->integer('quantity')->default(0);
-            $table->string('unit')->default('pieces');
+            $table->string('unit')->nullable();
             $table->integer('reorder_level')->default(0);
             $table->text('description')->nullable();
             $table->string('featured_image')->nullable();

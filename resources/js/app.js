@@ -100,4 +100,29 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     );
+
+    document.addEventListener("shown.bs.modal", function (event) {
+        const modal = event.target; // The modal that triggered the event
+        const featuredImageInput = modal.querySelector("#featured_image");
+        const previewImage = modal.querySelector("#preview-image");
+
+        if (featuredImageInput && previewImage) {
+            // Add event listener to handle image preview
+            featuredImageInput.addEventListener("change", function (event) {
+                const file = event.target.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // Reset to placeholder if no file is selected
+                    previewImage.src =
+                        previewImage.getAttribute("data-placeholder");
+                }
+            });
+        }
+    });
 });

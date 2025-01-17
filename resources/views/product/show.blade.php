@@ -32,7 +32,7 @@
             </div>
             <div class="row">
                 <div class="col text-group">
-                    <small>Quantity</small>
+                    <small>Stocks</small>
                     <p>{{ $product->quantity }}</p>
                 </div>
                 <div class="col text-group">
@@ -48,7 +48,7 @@
                 <div class="col text-group">
                     <small>Status</small>
                     <div>
-                        <p class="badge text-bg-{{ $product->status == 'active' ? 'success' : 'light'}} d-inline-block">
+                        <p class="badge text-bg-{{ $product->status == 'active' ? 'success' : 'secondary'}} d-inline-block">
                             {{ ucwords($product->status) }}
                         </p>
                     </div>
@@ -56,7 +56,7 @@
             </div>
             <div class="row">
                 <small>Description</small>
-                <p>{{ $product->description }}</p>
+                <p>{{ $product->description ?? 'Product has no description.'}}</p>
             </div>
         </div>
         <div class="col-4">

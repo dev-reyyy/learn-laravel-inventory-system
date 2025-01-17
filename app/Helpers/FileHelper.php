@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Helpers;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class Utility extends Model
+class FileHelper
 {
     public static function storeFile($file, $directory, $disk)
     {
@@ -33,7 +32,7 @@ class Utility extends Model
         }
         return false;
     }
-    
+
     public static function deleteFiles($filePaths, $disk)
     {
         if ($filePaths) {
